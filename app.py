@@ -60,7 +60,7 @@ def extract_features(audio_file):
 # Main Streamlit App
 # ---------------------------------------
 def main():
-    st.title("Lie Detection Audio App")
+    st.title("Truth/Lie Detection")
     st.write("Upload an audio file to check its authenticity (truthful vs. deceptive).")
     
     uploaded_file = st.file_uploader("Choose an audio file", type=["wav", "mp3", "ogg"])
