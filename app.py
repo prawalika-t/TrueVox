@@ -8,7 +8,7 @@ import io
 # Function to load the pre-trained model.
 # The model is cached so that it loads only once.
 # ---------------------------------------
-@st.cache(allow_output_mutation=True)
+@st.cache_data(allow_output_mutation=True)
 def load_model():
     model_path = "lie-detection-model.pkl"  # Ensure this file is in the same directory.
     model_data = joblib.load(model_path)
