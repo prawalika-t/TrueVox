@@ -5,53 +5,6 @@ import joblib
 import io
 
 # ---------------------------------------
-# Inject custom CSS for a classy, funky UI with black and green colors
-# ---------------------------------------
-st.markdown(
-    """
-    <style>
-    /* Overall page background and text */
-    .reportview-container {
-        background: #000000;
-        color: #00ff00;
-    }
-    .sidebar .sidebar-content {
-        background: #000000;
-        color: #00ff00;
-    }
-    /* Header styling */
-    h1, h2, h3, h4, h5, h6 {
-        color: #00ff00;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    /* Description paragraph styling */
-    .description {
-        font-size: 18px;
-        font-family: 'Courier New', Courier, monospace;
-        color: #00ff00;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 15px;
-        border-radius: 8px;
-    }
-    /* Button styling */
-    .stButton>button {
-        background-color: #00ff00;
-        color: #000000;
-        border: none;
-        font-weight: bold;
-        border-radius: 5px;
-        padding: 0.5em 1em;
-    }
-    /* File uploader styling */
-    .stFileUploader label {
-        color: #00ff00;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# ---------------------------------------
 # Function to load the pre-trained model.
 # Using st.cache_resource to cache the model.
 # ---------------------------------------
@@ -107,19 +60,9 @@ def extract_features(audio_file):
 # Main Streamlit App
 # ---------------------------------------
 def main():
-    # Header & description
-    st.title("TrueVox: Audio Lie Detection")
-    st.markdown(
-        """
-        <div class="description">
-        **TrueVox** uses state-of-the-art machine learning to analyze your audio recordings and determine if the voice is authentic or deceptive. 
-        Upload an audio file below, and let TrueVox reveal the truth hidden within the sound.
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.title("Lie Detection Audio App")
+    st.write("Upload an audio file to check its authenticity (truthful vs. deceptive).")
     
-    # Audio file uploader widget.
     uploaded_file = st.file_uploader("Choose an audio file", type=["wav", "mp3", "ogg"])
     
     if uploaded_file is not None:
@@ -134,12 +77,10 @@ def main():
         
         st.write("Extracted features:", features)
         
-        # Load the pre-trained model.
         model_data = load_model()
         model = model_data["model"]
         label_encoder = model_data["label_encoder"]
         
-        # Reshape features to match model input (1 sample with 4 features).
         features_reshaped = features.reshape(1, -1)
         prediction_numeric = model.predict(features_reshaped)
         prediction_label = label_encoder.inverse_transform(prediction_numeric)[0]
