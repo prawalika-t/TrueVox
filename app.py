@@ -10,7 +10,7 @@ import io
 # ---------------------------------------
 @st.cache_resource
 def load_model():
-    model_path = "lie-detection-model.pkl"  # Ensure this file is in the same directory.
+    model_path = "lie_detection_model.pkl"  # Ensure this file is in the same directory.
     model_data = joblib.load(model_path)
     return model_data
 
